@@ -1,0 +1,70 @@
+.form-message-error{color:red;text-align:center;padding:15px}
+.form-message-success{color:#fff;text-align:center;font-size:30px;padding:15px}
+.form__content .form-area.js-contact-buyer-message{min-height:50px;padding:14px 35px}
+#buyer-1 .col-md-12 ._label,#buyer-2 .col-md-12 ._label{text-align:center;margin-bottom:-50px}
+.gallery .slick-slide{margin:0 1px}
+#remainingbalance-payment-form .panel-body p,#remainingbalance-payment-form .panel-body ul{margin-bottom:0;line-height:14px;text-indent:1.5em}
+#remainingbalance-payment-form .panel-body p,#remainingbalance-payment-form .panel-body ul{font-size:14px}
+#remainingbalance-payment-form .panel-body img{width:50%;margin:1em 0}
+.form__top .row>.col-md-3:first-child{padding-right:0}
+@media(max-width:1459px){#remainingbalance-payment-form .panel-body img{width:60%;margin:1em 0}
+}
+@media(max-width:1200px){#remainingbalance-payment-form .panel-body img{width:70%;margin:1em 0}
+}
+@media(max-width:767px){.form__top .row>.col-md-3:first-child{padding:0 10px}
+#remainingbalance-payment-form .panel-body img{width:80%;margin:1em 0}
+.woocommerce .product-short-description{margin:0 1em;text-align:left}
+.woocommerce .product-description{text-align:left}
+}
+@media(max-width:368px){#remainingbalance-payment-form .panel-body img{width:100%;margin:1em 0}
+}
+.single .stand{background-image:none}
+.news_body h3{padding-bottom:1em}
+.news_body p{text-align:justify}
+.news_body p img{height:auto;width:100%}
+.wpcf7::after{clear:both;content:"";display:block}
+.wpcf7-form .column{margin-bottom:10px}
+.wpcf7-not-valid-tip{position:absolute!important;left:-50px!important;top:0!important;width:50px!important;height:44px!important;padding:0!important;overflow:hidden;text-indent:-9999px!important;padding:0;border:0!important}
+.wpcf7-validation-errors{border:0;display:none!important}
+.wpcf7-mail-sent-ok{border:0!important;margin:25px 0 0!important;padding:7px!important;background:#7dcc68!important;color:#fff;font-size:14px;text-align:center;float:left;width:100%}
+.wpcf7-mail-sent-ng{border:0!important;margin:25px 0 0!important;padding:7px!important;background:#fb5455!important;color:#fff;font-size:14px;text-align:center;float:left;width:100%}
+.wpcf7-captchar{margin-bottom:0}
+span.wpcf7-form-control-wrap{width:100%;position:relative!important;display:inline-block;margin-bottom:3px}
+span.wpcf7-form-control-wrap .wpcf7-date,span.wpcf7-form-control-wrap .wpcf7-quiz,span.wpcf7-form-control-wrap .wpcf7-number,span.wpcf7-form-control-wrap .wpcf7-select,span.wpcf7-form-control-wrap .wpcf7-text,span.wpcf7-form-control-wrap .wpcf7-textarea{width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin-bottom:0}
+.wpcf7-not-valid{background:#fff!important;-webkit-box-shadow:0 0 32px 3px rgba(255,0,0,.41)!important;-moz-box-shadow:0 0 32px 3px rgba(255,0,0,.41)!important;box-shadow:0 0 32px 3px rgba(255,0,0,.41)!important}
+.wpcf7-form-control:focus{-webkit-box-shadow:0 0 32px 3px rgba(0,0,0,.41);-moz-box-shadow:0 0 32px 3px rgba(0,0,0,.41);box-shadow:0 0 32px 3px rgba(0,0,0,.41)}
+.wpcf7-submit{margin-bottom:0!important}
+.wpcf7-form input[type=radio]{width:16px;height:16px;cursor:pointer;border:2px solid #0097a9;border-radius:50%;margin-bottom:-2px;margin-right:16px}
+.wpcf7-form input[type=radio]:checked{background-color:#0097a9;border:2px solid #0097a9}
+.wpcf7-form input[type=checkbox],input#terms,input#ship-to-different-address-checkbox{width:1em;height:1em;cursor:pointer;border:2px solid #0097a9;margin-bottom:-2px;margin-right:16px}
+.wpcf7-form input[type=checkbox]:checked,input#terms:checked,input#ship-to-different-address-checkbox:checked{background-color:transparent;background-image:url(/wp-content/themes/kinomo/html/app/static/images/checkbox-checked.svg);border:0;background-size:contain;background-repeat:no-repeat}
+input#terms{display:inline-block;position:relative}
+input#ship-to-different-address-checkbox{display:inline-block;position:absolute;right:-.5em}
+.wc-terms-and-conditions label span a{color:#54c6d1;text-decoration:underline}
+.wc-terms-and-conditions label span a:hover,.wc-terms-and-conditions label span a:active{color:#54c6d1;text-decoration:underline}
+.wpcf7-form span.wpcf7-list-item{float:left;width:100%}
+.wpcf7-submit{min-width:390px;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;padding:16px 15px;color:#fff;background-color:#0097a9;font-weight:400;font-style:normal;display:inline-block;vertical-align:top;border:0;transition:.3s;cursor:pointer}
+.btn-big-green{-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;padding:16px 15px;color:#fff;background-color:#0097a9;font-weight:400;font-style:normal;display:inline-block;vertical-align:top;border:0;transition:.3s;cursor:pointer;margin:0 0 2em}
+.hidden{display:none}
+.wp-video{margin:1em auto 2em}
+.news_body p a{font-weight:700}
+.news_body p a:hover,.news_body p a:active,.news_body p a:focus{color:#00ced1;text-decoration:underline}
+.woocommerce-product-gallery__image{width:180px;margin:0 50%}
+.woocommerce .quantity .qty{font-size:150%;line-height:1.4}
+#billing_eu_vat_number_field .description{font-size:.7em}
+#billing_eu_vat_number{display:block;width:100%;height:34px;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
+.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method.payment_method_bacs{background-color:#b1d6db;margin:1em 0;padding:1em}
+.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method.payment_method_stripe{background-color:#0097a9;margin:1em 0;padding:1em}
+.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label{cursor:pointer}
+.woocommerce .quantity input[type=number]::-webkit-outer-spin-button,.woocommerce .quantity input[type=number]::-webkit-inner-spin-button{opacity:.8}
+.woocommerce .quantity input[type=number]::-webkit-inner-spin-button:hover,.woocommerce .quantity input[type=number]::-webkit-inner-spin-button:active{opacity:.8}
+ul.wc-bacs-bank-details.order_details.bacs_details li{float:none}
+.woocommerce-cart .woocommerce table.cart .product-thumbnail img{width:150px}
+.product-description ul{display:list-item;list-style-type:disc;margin:1.5em}
+a.restore-item{color:#a46497;font-weight:900;text-decoration:underline}
+.woocommerce .button.update_cart{border:1px solid}
+.woocommerce .button.update_cart:disabled[disabled],.woocommerce .button.update_cart:disabled{border:0}
+.header__btn{right:12%;font-size:19.5px}
+.header__btn .btn-blue{line-height:40px}
+.pq-error-message{text-align:center;margin-top:1em;color:red}
+.btn-link{font-size:.5em;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 15px}
