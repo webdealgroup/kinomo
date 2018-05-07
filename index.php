@@ -1,1178 +1,149 @@
 <?php
+    
+    //header("Content-type: text/html;charset=utf-8");
+    session_start();
+    require_once('site/libs/mysql.php'); // порядок подключения обязателен
 
-header("Content-type: text/html;charset=utf-8");
 
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
+    require_once('site/libs/smarty/Smarty.class.php');
+    include_once('site/modules/aModule.class.php');
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="yandex-verification" content="a88e6767a9f0fe6e" />
-
-        <title> Hypervsn™ от Kino-mo &raquo; Купить подлинный Hypervsn™ от Kino-mo, Москва</title>
-
-        <link rel="stylesheet" href="/wp-content/themes/kinomo/html/dist/static/css/main.css">
-        <link rel="stylesheet" href="/wp-content/themes/kinomo/css/custom.css?v=11.2">
-
-        <link rel="shortcut icon" href="/wp-content/themes/kinomo/html/dist/static/images/meta/favicon.png"
-        type="image/png">
-
-        <script type="text/javascript">
-            var ajaxurl = '/wp-admin/admin-ajax.php';
-        </script>
-
-        <!-- This site is optimized with the Yoast SEO plugin v6.2 - https://yoa.st/1yg?utm_content=6.2 -->
-        <link rel="canonical" href="/" />
-        <meta property="og:locale" content="en_GB" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Home page - Hypervsn™ by Kino-mo" />
-        <meta property="og:url" content="/" />
-        <meta property="og:site_name" content=" Hypervsn™ by Kino-mo" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Home page - Hypervsn™ by Kino-mo" />
-        <script type='application/ld+json'>
-            {"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/kinomo.online\/","name":" Hypervsn\u2122 by Kino-mo","potentialAction":{"@type":"SearchAction","target":"https:\/\/kinomo.online\/?s={search_term_string}","query-input":"required name=search_term_string"}
+    function getRequest()
+    {
+        $params = array_merge($_GET, $_POST);
+        reset($params);
+        while(list($key,$value) = each($params)){
+            if (gettype($params[$key]) != "array"){
+                if (get_magic_quotes_gpc()){
+                    $value = stripslashes(trim($value));
+                }
+                $params[$key] = $value;
             }
-        </script>
-        <!-- / Yoast SEO plugin. -->
-
-        <link rel='dns-prefetch' href='//s.w.org' />
-        <link rel='stylesheet' id='contact-form-7-css'  href='/wp-content/plugins/contact-form-7/includes/css/styles.css' type='text/css' media='all' />
-        <link rel='stylesheet' id='woocommerce-layout-css'  href='/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css' type='text/css' media='all' />
-        <link rel='stylesheet' id='woocommerce-smallscreen-css'  href='/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)' />
-        <link rel='stylesheet' id='woocommerce-general-css'  href='/wp-content/plugins/woocommerce/assets/css/woocommerce.css' type='text/css' media='all' />
-        <link rel='https://api.w.org/' href='/wp-json/' />
-        <link rel='shortlink' href='/' />
-        <link rel="alternate" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fkino-mo.com%2F" />
-        <link rel="alternate" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fkino-mo.com%2F&#038;format=xml" />
-        <noscript>
-            <style>
-                .woocommerce-product-gallery {
-                    opacity: 1 !important;
-                }
-            </style>
-        </noscript>
-
-    </head>
-    <body class="home page-template-default page page-id-9 page-home" >
-        <div class="wrapper">
-            <header class="header">
-                <div class="container">
-                    <div class="header__top">
-                        <div class="header__action">
-
-                            <div class="header__social">
-                                <ul class="social-small">
-                                    <li>
-                                        <a href="https://www.facebook.com/kinomo.uk/" target="_blank" class="_link fb"></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com/kino_mo_" target="_blank" class="_link tw"></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.youtube.com/user/OldBondLondonLtd" target="_blank"
-                                        class="_link yt"></a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <button class="header__menu js-open-menu"></button>
-                        </div>
-                    </div>
-                    <div class="header__main">
-                        <div class="header__logo">
-                            <a href="/"> <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logo.png"
-                            alt=""> <img class="_fixed"
-                            src="/wp-content/themes/kinomo/html/dist/content/images/logo-fixed.png" alt=""> </a>
-                        </div>
-
-                        <nav class="header__nav">
-                            <ul class="_list js-nav">
-                                <li class="active">
-                                    <a href="#hypervsn" class="_link">Hypervsn&trade;</a>
-                                </li>
-                                <li>
-                                    <a href="#how-it-works" class="_link">Как это работает </a>
-                                </li>
-                                <li>
-                                    <a href="#applications" class="_link">Приложения </a>
-                                </li>
-                                <li>
-                                    <a href="#industry" class="_link">Применения в отраслях </a>
-                                </li>
-                                <li>
-                                    <a href="#about" class="_link">О Kino-mo</a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <ul class="header__btn">
-
-                            <li>
-                                <button class="btn btn-blue btn-small js-scroll-down" data-id="contact-us">
-                                    <a href="/#contact_form">Связаться сейчас</a>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </header>
-
-            <div class="wrapper__inner">
-
-                <div class="main js-video"
-                data-mp4="/wp-content/themes/kinomo/html/dist/content/video/2.mp4"
-                data-webm="/wp-content/themes/kinomo/html/dist/content/video/video.webm"
-                data-ogv="/wp-content/themes/kinomo/html/dist/content/video/video.ogv"
-                style="background-image: url(/logo_tel.png);" 
-                data-text-timeout="10">
-                    <div class="main__text"></div>
-                    <div class="main__text"></div>
-                    <button class="main__arrow js-scroll-down" data-id="down">
-
-                    </button>
-                </div>
+        } 
+        return $params; 
+    }
 
 
-                <div class="hypervsn" id="hypervsn">
-                    <div class="hypervsn__inner">
-                        <div class="hypervsn__device">
-                            <img src="/wp-content/themes/kinomo/html/dist/content/images/device.png" alt="">
-
-                            <button class="hypervsn__plus" data-popup="popup-device"></button>
-                        </div>
-
-                        <div class="hypervsn__text">
-                            <div class="_img">
-                                <img src="/wp-content/themes/kinomo/html/dist/content/images/hypervsn-big.png" alt="">
-                            </div>
-
-                            <div class="_title">
-                                МАКСИМАЛЬНОЕ РЕШЕНИЕ ДЛЯ РЕАЛИЗАЦИИ ПОРАЖАЮЩИХ ВООБРАЖЕНИЕ, ВИСЯЩИХ В ПРОСТРАНСТВЕ 3D АНИМАЦИЙ С ГОЛОГРАФИЧЕСКИМ ЭФФЕКТОМ
-                            </div>
-
-                            <div class="_desc">
-                                Hypervsn™ это передовое визуальное решение для создания, управления и отображения вашего уникального  3D-видеоконтента с голографическим эффектом. Оно уникально сочетает в себе интеллектуальную платформу управления Hypervsn ™ и проекционный блок Hypervsn ™, высокотехнологичное аппаратное устройство, создающее потрясающие 3D-визуальные эффекты, воспринимаемые зрителями как голограммы с высоким разрешением, возникающие в пространстве.
-                            </div>
-
-                        </div>
-
-                        <div class="hypervsn__platform">
-                            <img src="/wp-content/themes/kinomo/html/dist/content/images/platform.png" alt="">
-                            <button class="hypervsn__plus" data-popup="popup-platform"></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery">
-                    <div class="gallery__item">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/gallery/img_01.jpg" alt="">
-                    </div>
-
-                    <div class="gallery__item">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/gallery/img_02.jpg" alt="">
-                    </div>
-                    <div class="gallery__item">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/gallery/img_03.jpg" alt="">
-                    </div>
-
-                    <div class="gallery__item">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/gallery/img_04.jpg" alt="">
-                    </div>
-                    <div class="gallery__item">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/gallery/img_05.jpg" alt="">
-                    </div>
-
-                    <div class="gallery__item">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/gallery/img_06.jpg" alt="">
-                    </div>
-                </div>
-
-                <div class="simple" id="how-it-works">
-                    <div class="container">
-                        <div class="simple__title">
-                            <h2>Просто. Интуитивно. Тонко. </h2>
-                        </div>
-
-                        <div class="simple__desc">
-                            На протяжении многих лет исследований и разработок, неудач и успехов в эволюции Hypervsn ™, здесь, в Kino-mo, мы создали уникальное визуальное решение, которое превращает настоящую науку в поистине удивительные эмоции.</br>
-
-                        </div>
-
-                        <div class="simple__number">
-                            <div class="number-item">
-                                <div class="_label wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0s">
-                                    1
-                                    <span>1</span>
-                                </div>
-                                <div class="_title wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
-                                    Установка
-                                </div>
-                                <div class="_desc wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.5s">
-                                    Легкий процесс установки и активации Hypervsn, а также полное руководство от Kino-mo.
-                                </div>
-                            </div>
-
-                            <div class="number-item">
-                                <div class="_label wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
-                                    2
-                                    <span>2</span>
-                                </div>
-                                <div class="_title wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.3s">
-                                    Загрузка
-                                </div>
-                                <div class="_desc wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s">
-                                    Используйте всю мощь платформы управления Hypervsn ™ ! Загрузите свои 3D-изображения, планируйте кампании, создавайте плейлисты и многое другое.
-                                </div>
-                            </div>
-
-                            <div class="number-item">
-                                <div class="_label wow fadeInLeft" data-wow-duration="1s" data-wow-delay="2s">
-                                    3
-                                    <span>3</span>
-                                </div>
-                                <div class="_title wow fadeInLeft" data-wow-duration="1s" data-wow-delay="2.3s">
-                                    Отображение
-                                </div>
-                                <div class="_desc wow fadeInLeft" data-wow-duration="1s" data-wow-delay="2.5s">
-                                    Теперь ваш контент отображается, и вы готовы запустить свои впечатляющие кампании. "Ух ты!" и "Ого!" эффекты гарантированы!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="customers" id="applications">
-                    <div class="customers__circles">
-                        <div class="_circle _circle--01"></div>
-                        <div class="_circle _circle--02"></div>
-                        <div class="_circle _circle--03"></div>
-                        <div class="_circle _circle--04"></div>
-                        <div class="_circle _circle--05"></div>
-                        <div class="_circle _circle--06"></div>
-                        <div class="_circle _circle--07"></div>
-                        <div class="_circle _circle--08"></div>
-                        <div class="_circle _circle--09"></div>
-                    </div>
-
-                    <div class="container">
-                        <div class="customers__title">
-                            <img src="/wp-content/themes/kinomo/html/dist/content/images/hypervsn-white.png" alt="">
-                            там где ваши клиенты
-                        </div>
-
-                        <div class="customers__desc">
-                            Hypervsn™ решение было разработано с учетом ваших бизнес потребностей. </br>Легкие устройства с собственной облачной платформой управления, что позволяет использовать систему в любом месте где это необходимо - на развлекательных площадках или  мероприятиях любого масштаба. </br>Вы также можете усилить влияние вашего бизнеса, создав Hypervsn™ сеть  с таким количеством устройств и в стольких количествах мест, где это необходимо. Управление удаленно, эффективно.
-
-                        </div>
-
-                        <ul class="customers__list">
-                            <li>
-                                Розничные магазины
-                            </li>
-                            <li>
-                                Торговые центры
-                            </li>
-                            <li>
-                                Ставки на спорт
-                            </li>
-                            <li>
-                                Отели
-                            </li>
-                            <li>
-                                Торговые выставки
-                            </li>
-                            <li>
-                                Мероприятия
-                            </li>
-                            <li>
-                                Кинотеатры
-                            </li>
-                            <li>
-                                Выставочные залы
-                            </li>
-                            <li>
-                                Аптеки
-                            </li>
-                            <li>
-                                Банки
-                            </li>
-                            <li>
-                                Рестораны
-                            </li>
-                            <li>
-                                Фуд корты
-                            </li>
-                            <li>
-                                Фитнес клубы
-                            </li>
-                            <li>
-                                Аэропорты
-                            </li>
-                            <li>
-                                Ночные клубы и бары
-                            </li>
-                            <li>
-                                Туристические агентства
-                            </li>
-                            <li>
-                                Музыкальные концерты
-                            </li>
-                            <li>
-                                Агентства недвижимости
-                            </li>
-                            <li>
-                                Страховые компании
-                            </li>
-                            <li>
-                                Круизные суда
-                            </li>
-                            <li>
-                                Больницы
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="video">
-                    <div class="video__title">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/hypervsn-white.png" alt="">
-                        в действии
-                    </div>
-                    <div class="video__frame" style="background-image: url('/wp-content/uploads/end.png')">
-                        <a href="https://youtu.be/8tP-33wBX5w"
-                        data-fancybox="" class="video__btn"></a>
-                    </div>
-                </div>
-
-                <div class="fit" id="industry">
-                    <div id="canvas"></div>
-                    <div class="container">
-                        <div class="fit__title">
-                            <h2>Одно решение. </br>Различные применения.</h2>
-                            <p>
-                                От игр и заботе о здоровье до автоиндустрии и финансов Hypervsn™ приносит  непревзойденный  и прорывной маркетинговый эффект, доказывая успешное применение нашего решения в любой отрасли.
-                                </br></br>Работая на собственной облачной платформе, Hypervsn™ от Kino-mo вышла далеко за пределы понятия "просто клёвая штучка". Это комплексное решение которое может быть легко интегрировано в ваш бизнес, предоставляя полную систему медиапланирования и помогая вам превзойти отраслевую конкуренцию.
-
-                            </p>
-                        </div>
-
-                        <div class="fit__list">
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/antenna.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Телеком
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/locked.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Страхование
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img
-                                    src="/wp-content/themes/kinomo/html/dist/content/images/fit/shopping-basket.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Розница
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/houses.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Недвижимость
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/gamepad.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Игры
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/atomic.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Образование
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/factory.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Производство
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img
-                                    src="/wp-content/themes/kinomo/html/dist/content/images/fit/steering-wheel.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Авто
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/compass.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Туризм
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img
-                                    src="/wp-content/themes/kinomo/html/dist/content/images/fit/first-aid-kit.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Здоровье
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/money-bag.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Банки
-                                </div>
-                            </div>
-                            <div class="fit__item">
-                                <div class="_icon">
-                                    <img src="/wp-content/themes/kinomo/html/dist/content/images/fit/ticket.png"
-                                    alt="">
-                                </div>
-                                <div class="_text">
-                                    Развлечения
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="logos">
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/AM.png"
-                        alt="">
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/Dell.png"
-                        alt="">
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/GE.png"
-                        alt="">
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main"
-                        src="/wp-content/themes/kinomo/html/dist/content/images/logos/intel.png" alt="">
-
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/AM.png"
-                        alt="">
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/Mac.png"
-                        alt="">
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/Moet.png"
-                        alt="">
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/RB.png"
-                        alt="">
-                    </div>
-                </div>
-
-                <div class="logos__item">
-                    <div class="_inner">
-                        <img class="_main" src="/wp-content/themes/kinomo/html/dist/content/images/logos/Sams.png"
-                        alt="">
-                    </div>
-                </div>
-            </div>
-
-            <a name="contact_form"></a>
-            <div class="form form--bottom js-contact-form-2">
-
+    if($_POST['send_msg']=='true')
+    { 
+        
+        //echo "<pre>"; print_r($_POST); echo "</pre>"; //die(); 
+        
+        $message = array();
+        $k = 0;
+        foreach($_POST as $n=>$v)
+        {
+            if ($k>0)
+            {
                 
-                <form action="" data-url="/email.php" autocomplete="off">
-                    <input type="hidden" name="client-type">
-                    <div class="container">
-                        <div class="form__title">
-                            <h2 class="_text">Cвяжитесь с нами</h2>
-                            <span class="_label">Все поля обязательны для заполнения</span>
-
-                        </div>
-
-                        <div class="form__body" >
-                            <div class="form__top">
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                        <div class="form-row" data-name="E-mail" data-empty="false" data-validate="email">
-                                            <input name="email" type="text" class="form-input js-contact-email cf-data"
-                                            placeholder="E-mail">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-row" data-empty="false" data-name="Phone" data-validate="text">
-                                            <input name="phone" type="text" class="form-input js-contact-website"
-                                            placeholder="Телефон">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="form__tabs js-tabs-container">
-                                <div class="_title">
-                                    Выберите один из вариантов:
-                                </div>
-
-                                <div class="form__list js-tabs">
-
-                                    <div class="_item">
-                                        <button class="btn btn-primary _link js-tab" data-type="Buyer" data-id="buyer-2">
-                                            Покупка
-                                        </button>
-                                        <div class="_text">
-                                            Купить свой Hypervsn™
-                                        </div>
-                                    </div>
-
-                                    <div class="_item">
-                                        <button class="btn btn-primary _link js-tab" data-type="Partner" data-id="events-2">
-                                            Использование для мероприятий
-                                        </button>
-                                        <div class="_text">
-                                            Аренда
-                                            Hypervsn™ для мероприятий
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form__content" id="buyer-2">
-                                    <div class="_tab">
-                                        BUYER
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="_row">
-                                                <div class="_label">
-                                                    Выберите предполагаемое использование </br>
-                                                    Hypervsn™ :
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <select name="describe" data-name="Option" class="js-dropdown-box js-buyer-select"
-                                                    data-placeholder="Выберите пункт">
-                                                        <option value="Retailer">Розничная торговля</option>
-                                                        <option value="Bar / Night club / Restaurant">Бар / Ночной клуб / Ресторан </option>
-                                                        <option value="Advertising agency">Рекламное агентство</option>
-                                                        <option value="Manufacturer">Производство</option>
-                                                        <option value="Gaming">Игры</option>
-                                                        <option value="Personal use">Личное использование</option>
-                                                        <option value="Other">Другое</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-row">
-                                                <input name="other2" style="display: none;" type="text"
-                                                class="form-input js-contact-buyer-details"
-                                                placeholder="Опишите">
-                                            </div>
-
-                                            <!--<div class="_row">
-                                            <div class="_label">
-                                            Let us know many units you would like to purchase. We will get back to you with further information and your payment link shortly
-                                            </div>
-
-                                            <div class="form-row ">
-                                            <input name="number2" type="text" class="form-input js-contact-buyer-quantities">
-                                            </div>
-                                            </div>-->
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-row _no-label">
-                                                <textarea name="message2" class="form-area js-contact-buyer-message"
-                                          placeholder="Прокомментируйте, как вы хотели бы использовать технологию Hypervsn"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="_label">
-                                                Нажминте 'Сделать запрос' чтобы получить информацию по продукту и стоимость
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form__content" id="events-2">
-                                    <div class="_tab">
-                                        Events
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form__select js-events-main-radio">
-                                                <div class="_title">
-                                                    Вы хотите арендовать Hypervsn ™ для одного конкретного мероприятия?
-                                                </div>
-                                                <ul class="_list">
-                                                    <li>
-                                                        <div class="radio js-events-main-no-details js-events-main">
-                                                            <input value="Yes" id="main-radio-1-2" type="radio"
-                                                            name="rentalflag"
-                                                            class="_input">
-                                                            <label for="main-radio-1-2" class="_label">Да, я хотел бы арендовать Hypervsn ™ на мероприятие</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio js-events-main-details">
-                                                            <input value="No" id="main-radio-2-2" type="radio"
-                                                            name="rentalflag"
-                                                            class="_input js-event-additional">
-                                                            <label for="main-radio-2-2" class="_label">Не только</label>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-row">
-                                                <textarea name="message3" class="form-area js-events-message"
-                                          placeholder="Прокомментируйте, как вы хотели бы использовать технологию Hypervsn"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-message-error js-form-error"></div>
-                            </div>
-
-                            <input type="hidden" name="type" value="1">
-                            <input type="hidden" name="product" value="hypervsn">
-
-                            <div class="form__btn" data-submit="true" style="display: none">
-                                <button class="btn btn-submit js-contact-submit cf-data cf-submit">
-                                    Сделать запрос
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="form-row">
-                    <div class="form-message-success js-form-success"></div>
-                </div>
-            </div>
-
-            <div class="about" id="about">
-                <div class="container">
-                    <div class="about__title">
-                        <h2>О Kino-mo</h2>
-                    </div>
-
-                    <div class="about__top">
-                        <div class="about__desc">
-                            <div class="_text">
-                                <p>
-                                    Kino-mo - удостоенная наград британская компания, занимающаяся разработкой высокотехнологичных визуальных решений.
-                                </p>
-                                <p>
-                                    С начала, поддержанного признанными во всем мире инвесторами Марком Кубаном и сэром Ричардом Брэнсоном, Kino-mo превратилась в глобально развивающуюся компанию, разрабатывающую и поставляющую умные, эмоционально привлекательные и визуально эффективные технологии.
-                                </p>
-                                <p>
-                                    Решение Hypervsn ™ от Kino-mo получило множество наград, включая Top 3 Британких достижений года и получило место в 10 самых впечатляющих технологий в мире от Mashable и USA Today.
-                                </p>
-                                <div></div>
-                            </div>
-                        </div>
-                        <div class="about__img">
-                            <img src="/wp-content/uploads/2017/06/img_01.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="about__logo">
-                        <ul class="_list">
-                            <li>
-                                <img src="/wp-content/uploads/2017/06/CNN.png" alt="">
-                            </li>
-                            <li>
-                                <img src="/wp-content/uploads/2017/06/DailyMail.png" alt="">
-                            </li>
-                            <li>
-                                <img src="/wp-content/uploads/2017/06/entrepreneur-logo.png" alt="">
-                            </li>
-                            <li>
-                                <img src="/wp-content/uploads/2017/06/Forbes_logo.svg.png" alt="">
-                            </li>
-                            <li>
-                                <img src="/wp-content/uploads/2017/06/techcrunch-logo.png" alt="">
-                            </li>
-                            <li>
-                                <img src="/wp-content/uploads/2017/06/Telegraph_logo.png" alt="">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="years">
-                    <div class="years__inner">
-                        <div class="years__item">
-                            <div class="_year">
-                                2012
-                            </div>
-                            <ul class="_list">
-                                <li>
-                                    Подтверждение от ведущих британских инвесторов в Dragon's Den, знаковых британских бизнес-телешоу, всего через несколько месяцев после основания компании. Публичность во всем мире.
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="years__item">
-                            <div class="_year">
-                                2014
-                            </div>
-                            <ul class="_list">
-                                <li>
-                                    Top 3 Британских достижений года
-
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="years__item">
-                            <div class="_year">
-                                2015
-                            </div>
-                            <ul class="_list">
-                                <li>
-                                    Британский технологический стартап года, публично одобренный сэром Ричардом Брэнсоном
-                                </li>
-
-                                <li>
-                                    Инвестиции от Mark Cuban
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="years__item">
-                            <div class="_year">
-                                2016
-                            </div>
-                            <ul class="_list">
-                                <li>
-                                    Ранние версии Hypervsn ™ успешно используются Red Bull, BMW, McDonald's, Virgin Media, Dell, Moet Hennesy
-                                </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="years__item">
-                            <div class="_year">
-                                2017
-                            </div>
-                            <ul class="_list">
-                                <li>
-                                    Hypervsn ™ официально запущен в Лас-Вегасе на выставке CES 2017
-                                </li>
-
-                                <li>
-                                    Первые дистрибьюторские соглашения в более чем 20 странах
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="review">
-                    <div class="review__inner">
-
-                        <div class="review__item">
-                            <div class="_text">
-                                &quot;ЭТО БУДУЩЕЕ ДИСПЛЕЕВ В РОЗНИЧНОЙ ТОРГОВЛЕ!&quot;
-                            </div>
-                            <div class="_name">
-                                MASHABLE
-                            </div>
-                            <div class="_label"></div>
-                        </div>
-                        <div class="review__item">
-                            <div class="_text">
-                                &quot;Невероятно цветное и реалистичное отображение HYPERVSN™ позволяет поверить что голограммы наконец реальны.&quot;
-                            </div>
-                            <div class="_name">
-                                USA TODAY
-                            </div>
-                            <div class="_label"></div>
-                        </div>
-                        <div class="review__item">
-                            <div class="_text">
-                                &quot;HYPERVSN ™ ПРЕДСТАВЛЯЕТ УНИКАЛЬНУЮ ВОЗМОЖНОСТЬ УВЛЕКАТЬ АУДИТОРИЮ.&quot;
-                            </div>
-                            <div class="_name">
-                                HUFFINGTON POST
-                            </div>
-                            <div class="_label"></div>
-                        </div>
-                        <div class="review__item">
-                            <div class="_text">
-                                &quot;Благодаря kino-mo голография может получить широкое распространение&quot;
-                            </div>
-                            <div class="_name">
-                                FINANCIAL TIMES
-                            </div>
-                            <div class="_label"></div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="popup" id="popup-device">
-                <div class="popup-inner popup-device">
-                    <button class="popup-close js-close-wnd"></button>
-
-                    <div class="popup-device__img">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/device_02.png" alt="">
-                    </div>
-
-                    <div class="popup-desc">
-                        <div class="_title">
-                            <h2>Hypervsn™ проекционный блок</h2>
-                        </div>
-                        <ul class="_list">
-
-                            <li>
-                                До 5 часов видеоконтента
-                            </li>
-                            <li>
-                                HD качество
-                            </li>
-                            <li>
-                                потребляемая мощность 65 Вт
-                            </li>
-                            <li>
-                                Вес устройства - 2.8 kg
-                            </li>
-                            <li>
-                                Предназначен для работы 24/7
-                            </li>
-                            <li>
-                                Гарантия и обслуживание
-                            </li>
-                            <li>
-                                Загрузка контента по Wi-Fi
-                            </li>
-                            <li>
-                                Размер графики - 56 см
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="popup" id="popup-platform">
-                <div class="popup-inner popup-platform">
-                    <button class="popup-close js-close-wnd"></button>
-
-                    <div class="popup-platform__img">
-                        <img src="/wp-content/themes/kinomo/html/dist/content/images/platform_02.png" alt="">
-                    </div>
-
-                    <div class="popup-desc">
-                        <div class="_title">
-                            <h2>Платформа</br> управления</br> Hypervsn™</h2>
-                        </div>
-                        <ul class="_list">
-                            <li>
-                                Обширная библиотека медиаконтента
-                            </li>
-                            <li>
-                                Мультиюнит синхронизация
-                            </li>
-                            <li>
-                                Управление всеми устройствами из одного места
-                            </li>
-                            <li>
-                                Беспроводная передача контента
-                            </li>
-                            <li>
-                                Списки воспроизведения и планирование медиаконтента
-                            </li>
-                            <li>
-                                Сбор данных и просмотр аналитики
-                            </li>
-                            <li>
-                                Инструменты создания видеоконтента
-                            </li>
-                            <li>
-                                Разделение прав пользователей
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu">
-            <button class="menu__close js-close-menu"></button>
-
-            <div class="menu__inner">
-                <ul class="menu__btn">
-                    <li>
-                        <button class="btn btn-blue btn-small js-scroll-down" data-id="contact-us">
-                            <a href="/#contact_form">Связаться сейчас</a>
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="menu__social">
-                    <ul class="social-small">
-                        <li>
-                            <a href="https://www.facebook.com/kinomo.uk/" target="_blank" class="_link fb"></a>
-                        </li>
-                        <li>
-                            <a href="https://twitter.com/kino_mo_" target="_blank" class="_link tw"></a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/user/OldBondLondonLtd" target="_blank" class="_link yt"></a>
-                        </li>
-                    </ul>
-                </div>
-
-                <ul class="menu__nav js-nav">
-                    <li>
-                        <a href="#hypervsn" class="_link">Hypervsn&trade;</a>
-                    </li>
-                    <li>
-                        <a class="_link" href="#how-it-works">Как это работает</a>
-                    </li>
-                    <li>
-                        <a class="_link" href="#applications">Приложения</a>
-                    </li>
-                    <li>
-                        <a class="_link" href="#industry">Применения в отраслях</a>
-                    </li>
-                    <li>
-                        <a class="_link" href="#about">О Kino-mo</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <footer class="footer">
-            <div class="container">
-                <div class="footer__top">
-                    <div class="footer__logo">
-                        <a href="/"> <img src="/wp-content/themes/kinomo/html/dist/content/images/logo.png" alt=""> </a>
-                    </div>
-                </div>
-
-                <div class="footer__main">
-                    <div class="_col">
-                        <div class="footer__info">
-                            <div class="_item">
-                                <div class="footer__address">
-                                    <br>
-                                    127055
-                                    <br>
-                                    Москва
-                                </div>
-                            </div>
-
-                            <div class="_item">
-                                <a href="#" class="footer__email footer__action"><span class="__cf_email__">info@kinomo.online</span></a>
-                            </div>
-
-                            <div class="_item">
-                                <span class="footer__phone footer__action">+7 906 0522430</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="_col _col--center">
-                        <ul class="footer__links js-nav">
-                            <li class="_img">
-                                <img src="/wp-content/themes/kinomo/html/dist/content/images/hypervsn.png" alt="">
-                            </li>
-                            <li>
-                                <a class="_link" href="#how-it-works">Как это работает</a>
-                            </li>
-                            <li>
-                                <a class="_link" href="#applications">Приложения</a>
-                            </li>
-                            <li>
-                                <a class="_link" href="#industry">Применения в отраслях</a>
-                            </li>
-                            <li>
-                                <a class="_link" href="#about">О Kino-mo</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="_col">
-                        <div class="footer__social">
-                            <ul class="social-big">
-                                <li>
-                                    <a href="https://www.facebook.com/kinomo.uk/" target="_blank" class="_link fb"></a>
-                                </li>
-                                <li>
-                                    <a href="https://twitter.com/kino_mo_" target="_blank" class="_link tw"></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.youtube.com/user/OldBondLondonLtd" target="_blank"
-                                    class="_link yt"></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/kinomo_uk/" class="_link inst"></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.linkedin.com/company/2656626/" class="_link in"></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="footer__desc">
-                            Революция в каждом измерении
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer__bottom">
-                    <div class="footer__copyright">
-                        &copy; 2O18
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        </div>
-
-        <script data-cfasync="false" src="/cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script type='text/javascript' src='/wp-content/themes/kinomo/html/dist/static/js/all.min.js'></script>
-        <script type='text/javascript' src='/wp-content/themes/kinomo/js/custom.js'></script>
-        <script type='text/javascript' src='/wp-content/themes/kinomo/js/contact-form.js'></script>
-        <script type='text/javascript'>
-            /* <![CDATA[ */
-            var wpcf7 = {
-                "apiSettings" : {
-                    "root" : "https:\/\/kino-mo.com\/wp-json\/contact-form-7\/v1",
-                    "namespace" : "contact-form-7\/v1"
-                },
-                "recaptcha" : {
-                    "messages" : {
-                        "empty" : "Please verify that you are not a robot."
-                    }
+                if($n == 'day')
+                {
+                    $message[$k]['name'] = $n;
+                    $message[$k]['txt'] = "1 день";
                 }
-            };
-            /* ]]> */
-        </script>
-        <script type='text/javascript' src='/wp-content/plugins/contact-form-7/includes/js/scripts.js'></script>
-        <script type='text/javascript' src='/wp-includes/js/wp-embed.min.js'></script>
+                elseif($n == 'hour')
+                {
+                    $message[$k]['name'] = $n;
+                    $message[$k]['txt'] = "1 час";
+                }
+                else
+                {
+                    $message[$k]['name'] = $n;
+                    $message[$k]['txt'] = $v;
 
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript" >
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter48387053 = new Ya.Metrika({
-                            id:48387053,
-                            clickmap:true,
-                            trackLinks:true,
-                            accurateTrackBounce:true,
-                            webvisor:true
-                        });
-                    } catch(e) { }
-                });
+                }
+            }
+            $k++;
+        }
+
+        $uploaddir = '/var/www/html/shtampovik.ru/upload/';
+        $uploadfile = $uploaddir . basename($_FILES['my_filename']['name']);
+
+        if (move_uploaded_file($_FILES['my_filename']['tmp_name'], $uploadfile)) {
+            //echo "Файл корректен и был успешно загружен.\n";
+        } else {
+            echo "Возможная атака с помощью файловой загрузки!\n";
+        }
+
+        $_SESSION['smarty']->assign('uploadfile', '/upload/'.basename($_FILES['my_filename']['name']));
+        $_SESSION['smarty']->assign('message', $message);
+
+        require_once "site/libs/SendMailSmtpClass.php"; // подключаем класс
+         
+        $mailSMTP = new SendMailSmtpClass('mail@webdeal.group', 'HzBpHuLn', 'ssl://smtp.yandex.ru', 'штамповик.рф', 465);
+        // $mailSMTP = new SendMailSmtpClass('логин', 'пароль', 'хост', 'имя отправителя');
+         
+        // заголовок письма
+        /**/
+        $headers= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=utf-8\r\n"; // кодировка письма
+        $headers .= "From: MAIL <mail@webdeal.group>\r\n"; // от кого письмо
         
-                var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = "https://mc.yandex.ru/metrika/watch.js";
-        
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f, false);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="https://mc.yandex.ru/watch/48387053" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->
+        $result =  $mailSMTP->send(
+                                        '4999732707@mail.ru', 
+                                        'Заказ штамповик.рф', 
+                                        $_SESSION['smarty']->fetch('mail.tpl'), 
+                                        $headers
+        ); // отправляем письмо
+        // $result =  $mailSMTP->send('Кому письмо', 'Тема письма', 'Текст письма', 'Заголовки письма');
+        if($result === true){
+            //echo "ok2"; die();
+        }else{
+            echo "Письмо не отправлено. Ошибка: " . $result;
+        }
+    }
 
-        <!-- Facebook Pixel Code -->
-        <script>
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '212303619542376');
-          fbq('track', 'PageView');
-        </script>
-        <noscript><img height="1" width="1" style="display:none"
-          src="https://www.facebook.com/tr?id=212303619542376&ev=PageView&noscript=1"
-        /></noscript>
-        <!-- End Facebook Pixel Code -->
+    class router extends aModule{
+        function execute($arr)
+        {
+            
+            if (empty($arr['q']))
+            {
+                $arr['q']='/index';
+            } // если пусто, считаем что это index
+            $alias = split("[\/]+", $arr['q']); // разбираем строку
+            foreach($alias as $a)   {if($a!='') {$post[] = $a; $aliases[] = $a;}}
+            $page = "";
+            
+            foreach($post as $k=>$v) {if ($k==0) {$page .= $v;}else{$page .= "/".$v;}}
+
+            $dir = $post;                    // $dir[0] - алиас модуля
+            $post = array_reverse($post);    // $post[0] - алиас запрашиваемой страницы
+            
+            //echo "<pre style='display:none;'>"; print_r($page); echo "</pre>"; //die();
+
+            //$pages = rows('SELECT * FROM pages WHERE active = 1 ORDER BY sort ASC');
+            //$_SESSION['smarty']->assign('pages', $pages); 
+
+            //$categories = rows('SELECT * FROM categories WHERE active = 1 ORDER BY sort ASC');
+            //$_SESSION['smarty']->assign('categories', $categories); 
+
+            $template = 'index.tpl';
+            /*
+            foreach($pages as $k=>$p) 
+            { 
+                if($p['alias'] == $page) 
+                { 
+                    $template = 'page.tpl'; 
+                    $_SESSION['smarty']->assign('p_index', $k);
+                }
+            }
+            
+            foreach($categories as $k=>$c) 
+            { 
+                if($c['alias'] == $page) 
+                { 
+                    $template = 'cat.tpl';
+                    $_SESSION['smarty']->assign('p_index', $k);
+                }
+            }
+            */
 
 
-        
-    </body>
-</html>
+            print ($_SESSION['smarty']->fetch($template));
+        }
+    }
+
+    $rout = new router();
+    $rout->execute(getRequest()); 
+?>
