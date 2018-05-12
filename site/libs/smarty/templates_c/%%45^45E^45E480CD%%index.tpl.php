@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2018-05-07 15:57:02
+<?php /* Smarty version 2.6.11, created on 2018-05-12 17:00:10
          compiled from index.tpl */ ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,9 +120,9 @@
             <div class="wrapper__inner">
 
                 <div class="main js-video"
-                data-mp4="/wp-content/themes/kinomo/html/dist/content/video/2.mp4"
-                data-webm="/wp-content/themes/kinomo/html/dist/content/video/video.webm"
-                data-ogv="/wp-content/themes/kinomo/html/dist/content/video/video.ogv"
+                data-mp4="/video/video.mp4"
+                data-webm="/video/video.webm"
+                data-ogv="/video/video.ogv"
                 style="background-image: url(/logo_tel.png);" 
                 data-text-timeout="10">
                     <div class="main__text"></div>

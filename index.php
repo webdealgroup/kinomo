@@ -1,5 +1,5 @@
 <?php
-    
+    header('Location: https://airholo.ru/'); die();
     //header("Content-type: text/html;charset=utf-8");
     session_start();
     require_once('site/libs/mysql.php'); // порядок подключения обязателен
