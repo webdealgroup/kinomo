@@ -1,5 +1,6 @@
 <?php
-    header('Location: https://airholo.ru/'); die();
+    header("HTTP/1.1 301 Moved Permanently");
+    header('Location: https://airholo.ru/'); exit(); die();
     //header("Content-type: text/html;charset=utf-8");
     session_start();
     require_once('site/libs/mysql.php'); // порядок подключения обязателен
